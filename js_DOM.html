@@ -1,0 +1,451 @@
+
+<html>
+<head>
+	<title>Frontend. JS DOM - домашнє завдання.</title>
+	<meta charset="utf-8">
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+	<meta name="format-detection" content="telephone=no">
+	<style>
+		body { margin: 0; padding: 20px; font: normal 16px/20px Arial, Helvetica, sans-serif;}
+		p { margin: 0; padding: 10px 0;}
+		h1, h2, h3 { margin: 0 auto; padding: 0.3em 0;}
+		form { position: absolute; right: 20px; padding: 12px 20px; text-align: center; background: white; border: 1px solid #aaa;}
+		form p { padding:6px 0;}
+		form:nth-child(1) { top: 50px;}
+		form:nth-child(2) { top: 1200px;}
+		form:nth-child(3) { top: 2400px;}
+		table { border-collapse: collapse;}
+		th, td { padding: 2px 8px; border: 1px solid #aaa; text-align: right;}
+		table#mp { cursor: help;}
+		table#khm tr > *:nth-child(1) { text-align: left;}
+		.hey:before { content: 'hey!'; display: inline-block; padding-right: 20px; font-size: 10px; line-height: 12px; color: #aaa;}
+	</style>
+</head>
+<body>
+
+	<p>User Agent: <span id="useragent">???</span>.</p>
+
+	<form action="#">
+		<input type="hidden" name="form" value="form">
+		<h3>Замовлення дзвінка:</h3>
+		<p><label><input type="text" name="name" placeholder="Введіть ім'я"></label></p>
+		<p><label><input type="tel" name="phone" placeholder="Введіть телефон"></label></p>
+		<p><label><input type="checkbox" checked> Я згоден з умовами.</label></p>
+		<p><input type="submit" value="Замовити дзвінок"></p>
+	</form>
+
+	<form action="#">
+		<input type="hidden" name="form" value="form">
+		<h3>Замовлення дзвінка:</h3>
+		<p><label><input type="text" name="name" placeholder="Введіть ім'я"></label></p>
+		<p><label><input type="tel" name="phone" placeholder="Введіть телефон"></label></p>
+		<p><input type="submit" value="Замовити дзвінок"></p>
+	</form>
+
+	<form action="#">
+		<input type="hidden" name="form" value="form">
+		<h3>Замовлення дзвінка:</h3>
+		<p><label><input type="text" name="name" placeholder="Введіть ім'я"></label></p>
+		<p><label><input type="tel" name="phone" placeholder="Введіть телефон"></label></p>
+		<p><input type="submit" value="Замовити дзвінок"></p>
+	</form>
+
+	<p><em><a href="en.wikipedia.org/wiki/Cat">Cat in wiki</a></em>.</p>
+	<p><img src="https://screenshots.en.sftcdn.net/en/scrn/82000/82660/hello-kitty-icons-16.png" alt="Hello Kitty"></p>
+	<p>&nbsp;</p>
+	<p>Таблиця. <em>Залежність кількості піратів та середньорічної температури планети.</em></p>
+	<table>
+		<tr>
+			<th>Рік</th>
+			<th>t, &deg;C</th>
+			<th>Піратів</th>
+		</tr>
+		<tr>
+			<td>1820</td>
+			<td>14,2</td>
+			<td>35 000</td>
+		</tr>
+		<tr>
+			<td>1860</td>
+			<td>14,3</td>
+			<td>45 000</td>
+		</tr>
+		<tr>
+			<td>1880</td>
+			<td>14,6</td>
+			<td>20 000</td>
+		</tr>
+		<tr>
+			<td>1920</td>
+			<td>14,9</td>
+			<td>15 000</td>
+		</tr>
+		<tr>
+			<td>1940</td>
+			<td>15,2</td>
+			<td>5 000</td>
+		</tr>
+		<tr>
+			<td>1980</td>
+			<td>15,6</td>
+			<td>400</td>
+		</tr>
+		<tr>
+			<td>2000</td>
+			<td>15,9</td>
+			<td>17</td>
+		</tr>
+	</table>
+
+	<div id="box">
+		<p><img src="https://i.ytimg.com/vi/kqaWt7wPMWw/hqdefault.jpg" alt="Clip"></p>
+		<p class="bordered"><a href="http://frontender.info/">Frontender</a>.</p>
+		<p><em><a href="en.wikipedia.org/wiki/Cat">Cat in wiki</a></em>.</p>
+		<p><a href="www.rd.com/wp-content/uploads/sites/2/2016/04/01-cat-wants-to-tell-you-laptop.jpg"><img src="http://www.rd.com/wp-content/uploads/sites/2/2016/04/01-cat-wants-to-tell-you-laptop.jpg"></a></p>
+		<p class="bordered"><a href="http://www.adme.ua/">ADME.ua</a>.</p>
+	</div>
+
+	<p>&nbsp;</p>
+	<p>Таблиця. <em>Множення.</em></p>
+	<table id="mp">
+	</table>
+	<script>
+		(function(){
+			var tr, td, mp = document.getElementById('mp');
+			for (var i = 0; i < 10; i++) {
+				tr = document.createElement('tr');
+				for (var j = 0; j < 10; j++) {
+					td = document.createElement(!i || !j ? 'th' : 'td');
+					if (!i && !j) { td.innerText = '*'; }
+					if (!i && j) { td.innerText = j; }
+					if (i && !j) { td.innerText = i; }
+					if (i && j) { td.innerText = i * j; }
+					tr.appendChild(td);
+				}
+				mp.appendChild(tr);
+			}
+		})();
+	</script>
+
+	<ul class="menu">
+		<li class="active"><a href="/">Головна</a></li>
+		<li><a href="/about.html">Про нас</a></li>
+		<li class="active">
+			<a href="/stuff.html">Продукція</a>
+			<ul>
+				<li>&gt; <a href="/stuff/4.html">Футболки</a></li>
+				<li>&gt; <a href="/stuff/4.html">Майки</a></li>
+				<li>&gt; <a href="/stuff/7.html">Труси</a></li>
+				<li class="active">&gt; <a href="/stuff/14.html">Шкарпетки</a></li>
+				<li>&gt; <a href="/stuff/17.html">Піжами</a></li>
+				<li>&gt; <a href="/stuff/24.html">Постільна білизна</a></li>
+			</ul>
+		</li>
+		<li><a href="/contacts.html">Контакти</a></li>
+		<li class="active"><a href="/sale.html">Акція!</a></li>
+	</ul>
+
+	<p><em><a href="http://enottone.ru/images/media/all_enot/enot-poloskun_enot_tone_7.jpg">Милый кот</a></em>.</p>
+	<p><em><a href="www.pokatashkin.com/wp-content/uploads/2014/02/IMG_20140206_1.jpg">На Марсе обнаружили воду</a></em>.</p>
+	<p>&nbsp;</p>
+	<p class="bordered">Таблиця. <em>Кількість гілок метро, трамвайних і тролейбусних ліній по райцентрам Хмельниччини.</em></p>
+	<table id="khm">
+		<tr><th>Райцентр</th><th>Метро</th><th>Трамвай</th><th>Тролейбус</th></tr>
+		<tr><td>Білогір'я</td><td>0</td><td>0</td><td>0</td></tr>
+		<tr><td>Віньківці</td><td>0</td><td>0</td><td>0</td></tr>
+		<tr><td>Волочиськ</td><td>0</td><td>0</td><td>0</td></tr>
+		<tr><td>Городок</td><td>0</td><td>0</td><td>0</td></tr>
+		<tr><td>Деражня</td><td>0</td><td>0</td><td>0</td></tr>
+		<tr><td>Дунаївці</td><td>0</td><td>0</td><td>0</td></tr>
+		<tr><td>Ізяслав</td><td>0</td><td>0</td><td>0</td></tr>
+		<tr><td>Кам'янець-Подільський</td><td>0</td><td>0</td><td>0</td></tr>
+		<tr><td>Красилів</td><td>0</td><td>0</td><td>0</td></tr>
+		<tr><td>Летичів</td><td>0</td><td>0</td><td>0</td></tr>
+		<tr><td>Нова Ушиця</td><td>0</td><td>0</td><td>0</td></tr>
+		<tr><td>Полоне</td><td>0</td><td>0</td><td>0</td></tr>
+		<tr><td>Славута</td><td>0</td><td>0</td><td>0</td></tr>
+		<tr><td>Старокостянтинів</td><td>0</td><td>0</td><td>0</td></tr>
+		<tr><td>Стара Синява</td><td>0</td><td>0</td><td>0</td></tr>
+		<tr><td>Теофіполь</td><td>0</td><td>0</td><td>0</td></tr>
+		<tr><td>Чемерівці</td><td>0</td><td>0</td><td>0</td></tr>
+		<tr><td>Шепетівка</td><td>0</td><td>0</td><td>0</td></tr>
+		<tr><td>Ярмолинці</td><td>0</td><td>0</td><td>0</td></tr>
+	</table>
+
+	<p class="bordered"><a href="https://www.youtube.com/channel/UCMAr-94KkdtiSqHoRJCPK1Q/videos">15x4</a>.</p>
+	<p><img src="http://kinoprosmotr.tv/uploads/posts/2013-09/1380010599_kinopoisk.ru-fantastic-mr-fox-1911209.jpg" alt="Бесподобный мистер Фокс"></p>
+
+	<script>
+		(function(){
+			var i = 0,
+					t = document.title + ' ';
+			setInterval(function(){
+				document.title = t.substr(i) + t.substr(0, i-1);
+				i++;
+				if (i >= t.length) { i = 0; }
+			}, 300);
+		})();
+
+		// Виведіть User Agent вашого браузера у span#useragent (дивіться властивість window.navigator).
+
+		useragent.innerText = window.navigator.userAgent;
+
+		// В кожній формі є скрите поле. В його value потрібно добавити form1, form2... Використайте об'єкт document.forms.
+
+		let forms = document.forms;
+
+		Array.prototype.map.call(forms,function(e,i){
+			return e.querySelector('input[type="hidden"]').value = "form" + (i+1);
+		});
+
+		// let inputHiden = document.querySelectorAll('input[type="hidden"]');
+
+		// for (let i = 0; i < inputHiden.length; i++){
+
+		// 	inputHiden[i].value = "form" + (i+1);
+		// }
+
+		// Кожна таблиця має заголовок. В заголовки добавте нумерацію: Таблиця 1. ... В даному випадку краще працювати з текстовою нодою.
+
+		let tables = document.querySelectorAll('table');
+
+		for (let i = 0; i < tables.length; i++){
+
+			tables[i].previousElementSibling.firstChild.textContent = tables[i].previousElementSibling.firstChild.textContent.slice(0, -2)+' '+(i+1)+'. ';
+
+		}
+
+		// У деяких посилань немає протоколу. Добавте протокол http до посилань там, де це необхідно.
+		// Також всі посилання повинні відкриватися в новому вікні.
+
+		let a = document.links;
+
+		Array.prototype.forEach.call(a,function(e){
+
+			if(e.href.substring(0, 5)!=='http'){
+				e.href= 'http://'+ e.href;
+			}
+
+			e.target = '_blank';
+
+		});
+
+		// Усі зображення повинні мати максимальну ширину 140 пікселів.
+
+		let images = document.images;
+
+		Array.prototype.forEach.call(images,function(e){
+
+			e.style.maxWidth = '140px';
+
+		});
+
+		// Для елементів з класом bordered добавте червону рамку.
+
+		let bordered = document.querySelectorAll('.bordered');
+
+		Array.prototype.forEach.call(bordered,function(e){
+
+			e.style.cssText = "border: 1px solid red;";
+
+		});
+
+		// Виділіть слово "Шкарпетки" червоним жирним шрифтом і жовтим фоном.
+
+		Array.prototype.forEach.call(a,function(e){
+
+			if(e.textContent==='Шкарпетки'){
+				e.style.color = 'red';
+				e.style.fontWeight = 'bold';
+				e.style.backgroundColor = 'yellow';
+			}
+		});
+
+		// Добавте скриптом ховер-ефект для меню першого рівня - рожевий фон, для меню другого рівня - блакитний фон.
+
+		let menuHover = document.querySelectorAll('.menu>li>a');
+		let menuHoverChild = document.querySelectorAll('.menu>li>ul a');
+
+		getHoverColor(menuHover, '#F7DBD0');
+		getHoverColor(menuHoverChild, '#BDE1F6');
+
+		// Добавте в таблицю про транспортні гілки Хмельниччини в заголовок те, що ця таблиця стосується 2100 року,
+		// а в тіло таблиці пропишіть рандомні числа від 0 до 10.
+
+		let table3Name = tables[2].previousElementSibling.lastElementChild;
+
+		table3Name.textContent = table3Name.textContent.slice(0,-1)+' у 2100 році.';
+
+		let table3tr = tables[2].rows;
+
+		Array.prototype.forEach.call(table3tr,function(e){
+
+			Array.prototype.forEach.call(e.cells,function(td){
+
+				if(!isNaN(+td.textContent)) td.textContent = getRandomInt(0, 10);
+		
+			});
+
+		});
+
+		// Змініть рік на 2080 та цифри так, щоб 0 в 10 разів зустрічався частіше, ніж 9,
+		// в 9 разів частіше ніж 8, в 8 разів частіше, ніж 7 і так далі.
+
+		table3Name.textContent = table3Name.textContent.split(' ').map(function(e){
+			if(e==='2100') e='2080';
+			return e;
+		}).join(' ');
+
+		Array.prototype.forEach.call(table3tr,function(e){
+
+			Array.prototype.forEach.call(e.cells,function(td){
+
+				let res = getRandomInt(1, 55);
+
+				if(!isNaN(+td.textContent)){
+
+					switch(true){
+					case res>0&&res<=10: 
+						td.textContent = 0;
+						break;
+					case res>10&&res<=19: 
+						td.textContent = 1;
+						break;
+					case res>19&&res<=27: 
+						td.textContent = 2;
+						break;
+					case res>27&&res<=34: 
+						td.textContent = 3;
+						break;
+					case res>34&&res<=40: 
+						td.textContent = 4;
+						break;
+					case res>40&&res<=45: 
+						td.textContent = 5;
+						break;
+					case res>45&&res<=49: 
+						td.textContent = 6;
+						break;
+					case res>49&&res<=52: 
+						td.textContent = 7;
+						break;
+					case res>52&&res<=54: 
+						td.textContent = 8;
+						break;
+					case res>54&&res<=55: 
+						td.textContent = 9;
+						break;
+				}	
+
+				};
+
+			});
+
+		});
+
+		// В таблиці множення зробіть ховер-ефект: коли рухаєте мишкою по комірках <td> -
+		// повинні підсвітитися рожевим кольором відповідні <th>.
+
+		let table2tr = tables[1].rows;
+
+		Array.prototype.forEach.call(table2tr,function(e){
+
+			Array.prototype.forEach.call(e.cells,function(td){
+
+				td.onmousemove = function(event){
+					e.style.backgroundColor = 'pink';
+				}
+				td.onmouseleave = function(event){
+					e.style.backgroundColor = "";
+				}
+			});
+		});
+
+		// Створіть нове зображення будь-якої тематики, добавте його в кінець div#box
+
+		let img = document.createElement('img');
+		img.setAttribute('src', 'https://st2.depositphotos.com/2001755/5408/i/450/depositphotos_54081723-stock-photo-beautiful-nature-landscape.jpg');
+		document.querySelector('div#box').appendChild(img);
+
+		// Перенесіть меню на початок сторінки.
+
+		let m = document.querySelector('.menu');
+		let pFirst = document.querySelector('p');
+		document.body.insertBefore(m, pFirst);
+		
+		// Скопіюйте меню в кінець сторінки.
+
+		let menu2 = m.cloneNode(true);
+		document.body.appendChild(menu2);
+
+		// Створіть новий стиль, який до всіх зображень додасть фіолетову рамку товщиною 5 пікселів.
+
+		Array.prototype.forEach.call(images,function(e){
+
+			e.style.cssText = e.style.cssText + "border: 5px solid #B34EE9;";
+
+		});
+
+		// У всіх чекбоксів приберіть галочки.
+
+		let checkbox = document.querySelectorAll('input[type="checkbox"]');
+
+		Array.prototype.forEach.call(checkbox,function(e){
+
+			e.checked=false;
+
+		});
+
+		// Пронумеруйте всі абзаци атрибутом data-id.
+
+		let pList = document.querySelectorAll('p');
+
+		for(let i = 0; i < pList.length; i++){
+			
+			pList[i].dataset.id = i+1;
+
+		// До кожного другого абзаца добавте клас hey.
+
+			if(pList[i].dataset.id%2===0){
+				pList[i].classList.add('hey');
+			}
+		}
+
+		// У абзаців, в яких є клас bordered - заберіть цей клас, а в яких немає - добавте.
+
+		Array.prototype.forEach.call(pList,function(e){
+
+			e.classList.toggle('bordered');
+
+		});
+
+
+
+		function getHoverColor(el, color){
+
+			Array.prototype.forEach.call(el,function(e){
+
+			let styleInitial = e.style.backgroundColor;
+
+			e.onmousemove = function(event){
+				e.style.backgroundColor = color;
+			}
+			e.onmouseleave = function(event){
+				e.style.backgroundColor = styleInitial;
+			}
+
+		});
+
+		};
+
+		function getRandomInt(min, max){
+			min = Math.ceil(min);
+			max = Math.floor(max);
+			return Math.floor(Math.random() * (max - min + 1)) + min;
+		};
+
+	</script>
+
+</body>
+</html>
