@@ -221,15 +221,15 @@
 
 		let a = document.links;
 
-		Array.prototype.forEach.call(a,function(e){
+		 Array.prototype.forEach.call(a,function(e){
 
-			if(e.href.substring(0, 5)!=='http'){
-				e.href= 'http://'+ e.href;
-			}
+		 	let href = e.getAttribute("href");
 
-			e.target = '_blank';
-
-		});
+		 	if(href.substring(0, 5)!=='http://' && href.substring(0, 6)!=='https://' && href[0]!=='/'){
+		 		e.setAttribute("href", 'http://'+ href);
+		 	};
+		 	e.setAttribute('target', '_blank');
+		 });
 
 		// Усі зображення повинні мати максимальну ширину 140 пікселів.
 
@@ -351,15 +351,32 @@
 
 		Array.prototype.forEach.call(table2tr,function(e){
 
+
 			Array.prototype.forEach.call(e.cells,function(td){
 
+				let count
+
 				td.onmousemove = function(event){
-					e.style.backgroundColor = 'pink';
+					count = 0;
+					for(let elem = td; elem; elem = elem.previousElementSibling){
+						elem.style.backgroundColor = 'pink';
+						count++;
+					}
+					for(let elem = td.parentElement; elem; elem = elem.previousElementSibling){
+						elem.children[count-1].style.backgroundColor = 'pink';
+					}
+		
 				}
 				td.onmouseleave = function(event){
-					e.style.backgroundColor = "";
+					for(let elem = td; elem; elem = elem.previousElementSibling){
+						elem.style.backgroundColor = '';
+					}
+					for(let elem = td.parentElement; elem; elem = elem.previousElementSibling){
+						elem.children[count-1].style.backgroundColor = '';
+					}
 				}
 			});
+
 		});
 
 		// Створіть нове зображення будь-якої тематики, добавте його в кінець div#box
@@ -371,7 +388,7 @@
 		// Перенесіть меню на початок сторінки.
 
 		let m = document.querySelector('.menu');
-		let pFirst = document.querySelector('p');
+		let pFirst = document.body.firstChild;
 		document.body.insertBefore(m, pFirst);
 		
 		// Скопіюйте меню в кінець сторінки.
@@ -381,20 +398,34 @@
 
 		// Створіть новий стиль, який до всіх зображень додасть фіолетову рамку товщиною 5 пікселів.
 
+		let purpleFrame = {
+			borderLeftWidth: '5px',
+			borderLeftColor: '#B34EE9',
+			borderLeftStyle: 'solid',
+			borderRightWidth: '5px',
+			borderRightColor: '#B34EE9',
+			borderRightStyle: 'solid',
+			borderTopWidth: '5px',
+			borderTopColor: '#B34EE9',
+			borderTopStyle: 'solid',
+			borderBottomWidth: '5px',
+			borderBottomColor: '#B34EE9',
+			borderBottomStyle: 'solid'
+		}
+
 		Array.prototype.forEach.call(images,function(e){
 
-			e.style.cssText = e.style.cssText + "border: 5px solid #B34EE9;";
-
+			for(i in purpleFrame){
+				e.style[i] = purpleFrame[i];
+			}
 		});
 
 		// У всіх чекбоксів приберіть галочки.
 
 		let checkbox = document.querySelectorAll('input[type="checkbox"]');
 
-		Array.prototype.forEach.call(checkbox,function(e){
-
+		checkbox.forEach(function(e){
 			e.checked=false;
-
 		});
 
 		// Пронумеруйте всі абзаци атрибутом data-id.
@@ -407,7 +438,7 @@
 
 		// До кожного другого абзаца добавте клас hey.
 
-			if(pList[i].dataset.id%2===0){
+			if(i%2===0){
 				pList[i].classList.add('hey');
 			}
 		}
